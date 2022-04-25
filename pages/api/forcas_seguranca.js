@@ -3,7 +3,7 @@ import CSVJSON from 'csvjson-csv2json';
 async function defpattern(request, response) {
     const dynamicDate = new Date();
     const data = await fetch("https://www.saopaulo.sp.gov.br/wp-content/uploads/" + dynamicDate.getFullYear() + "/" +
-    (dynamicDate.getMonth() + 1).toString().padStart(2, '0') + "/" + formatDate(dynamicDate.toUTCString()) + "_vacinacao_forcas_segurancas.csv", requestOptions)
+    (dynamicDate.getMonth() + 1).toString().padStart(2, '0') + "/" + formatDate(dynamicDate.toUTCString()) + "_vacinacao_forcas_segurancas.csv")
     const datatxt = await data.text(data);
     const datajson = CSVJSON.csv2json(datatxt);
 
@@ -13,15 +13,6 @@ async function defpattern(request, response) {
         data: datajson
     })
 }
-
-var myHeaders = new Headers();
-myHeaders.append("origin", "same-origin");
-myHeaders.append("x-cors-grida-api-key", process.env.CORS_KEY);
-
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders
-};
 
 function formatDate(date) {
     var d = new Date(date),
